@@ -8,7 +8,9 @@ use core::panic::PanicInfo;
 
 // This function is called on panic
 #[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
+fn panic(info: &PanicInfo) -> ! {
+    println!("{}", info);
+
     loop {}
 }
 
@@ -18,15 +20,7 @@ mod vga_buffer;
 // This is our entry point! We use never "!", as the entry point isn't called by a function, it's invoked directly by the OS/bootloader.
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
-    use core::fmt::Write;
-    vga_buffer::WRITER.lock().write_str("Hello again").unwrap();
-    write!(
-        vga_buffer::WRITER.lock(),
-        ", some numbers: {} {}",
-        42,
-        1.337
-    )
-    .unwrap();
+    println!("Hello World{}", "!");
 
     loop {}
 }
