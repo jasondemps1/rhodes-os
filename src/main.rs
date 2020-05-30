@@ -14,13 +14,19 @@ fn panic(_info: &PanicInfo) -> ! {
 
 mod vga_buffer;
 
-static HELLO: &[u8] = b"Hello World!";
-
 // Disable name mangling (required, linker needs to know where our fn is!).
 // This is our entry point! We use never "!", as the entry point isn't called by a function, it's invoked directly by the OS/bootloader.
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
-    vga_buffer::print_something();
+    use core::fmt::Write;
+    vga_buffer::WRITER.lock().write_str("Hello again").unwrap();
+    write!(
+        vga_buffer::WRITER.lock(),
+        ", some numbers: {} {}",
+        42,
+        1.337
+    )
+    .unwrap();
 
     loop {}
 }
