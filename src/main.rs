@@ -12,6 +12,8 @@ fn panic(_info: &PanicInfo) -> ! {
     loop {}
 }
 
+mod vga_buffer;
+
 static HELLO: &[u8] = b"Hello World!";
 
 // Disable name mangling (required, linker needs to know where our fn is!).
@@ -19,7 +21,7 @@ static HELLO: &[u8] = b"Hello World!";
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
     // VGA Test!!!!!!!!
-    // VGA Text Buffer is at 0xb8000
+    // VGA Text Buffer is at 0xb8000 (memory-mapped I/O)
     // Cast the address to a raw pointer
     let vga_buffer = 0xb8000 as *mut u8;
 
