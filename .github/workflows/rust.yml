@@ -25,8 +25,8 @@ jobs:
         #toolchain: # optional
         # Arguments for the cargo command
         args: cargo-xbuild
-    # Use cross instead of cargo
-    use-cross: # optional  
+        # Use cross instead of cargo
+        #use-cross: # optional  
     - name: Build
       run: cargo xbuild --verbose
     - name: Run tests
