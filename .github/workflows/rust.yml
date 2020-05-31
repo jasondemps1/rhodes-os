@@ -1,0 +1,30 @@
+name: Rust
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: rust-cargo
+      uses: actions-rs/cargo@v1.0.1
+      with:
+        command: install
+        args: cargo-xbuild
+    - name: rustup
+      run: rustup component add rust-src
+    - name: Build
+      run: cargo xbuild --verbose
+    # Can't run tests due to QEmu dependency currently.
+    #- name: Run tests
+    #  run: cargo xtest --verbose
