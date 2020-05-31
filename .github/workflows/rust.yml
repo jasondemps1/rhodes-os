@@ -19,14 +19,10 @@ jobs:
     - name: rust-cargo
       uses: actions-rs/cargo@v1.0.1
       with:
-        # Cargo command to run (ex. `check` or `build`)
         command: install
-        # Toolchain to use (without the `+` sign, ex. `nightly`)
-        #toolchain: # optional
-        # Arguments for the cargo command
         args: cargo-xbuild
-        # Use cross instead of cargo
-        #use-cross: # optional  
+    - name: rustup
+      run: rustup component add rust-src
     - name: Build
       run: cargo xbuild --verbose
     - name: Run tests
